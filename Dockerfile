@@ -1,6 +1,5 @@
 FROM node:14 AS builder
 WORKDIR /app
-ENV BUILD_PATH './build'
 
 COPY . .
 
@@ -13,6 +12,6 @@ RUN \
 
 FROM nginx:alpine AS prod
 WORKDIR /usr/share/nginx/html
-COPY --from=builder /app/build .
+COPY --from=builder /app/dist .
 EXPOSE 80
 ENTRYPOINT ["nginx", "-g", "daemon off;"]
